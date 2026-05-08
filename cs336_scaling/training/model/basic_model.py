@@ -1,5 +1,5 @@
 from functools import partial
-from typing import Literal, Self
+from typing import Self
 
 import equinox as eqx
 import jax
@@ -10,28 +10,9 @@ from jax import P
 from jaxtyping import Array, Float, Int
 
 import cs336_scaling.training.model._eqx_state_patch  # noqa: F401
-from cs336_scaling.schemas.base import FrozenForbidExtraModel
+from cs336_scaling.training.model.config import BasicTransformerConfig
 from cs336_scaling.training.model.jax_utils import clean_gather
 from cs336_scaling.training.model.rope import BasicRotaryEmbedding
-
-
-class BasicTransformerConfig(FrozenForbidExtraModel):
-    attention_bias: bool
-    head_dim: int
-    hidden_size: int
-    intermediate_size: int
-    num_attention_heads: int
-    num_hidden_layers: int
-    num_key_value_heads: int
-    rms_norm_eps: float
-    rope_theta: int
-    tie_word_embeddings: bool
-    dtype: Literal["float32", "bfloat16"]
-    vocab_size: int
-
-    @property
-    def jax_dtype(self) -> jnp.dtype:
-        return jnp.dtype(self.dtype)
 
 
 class BasicAttention(eqx.Module):

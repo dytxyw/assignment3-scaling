@@ -1,11 +1,11 @@
 from dataclasses import field
 from typing import TYPE_CHECKING
 
-import optax
-
 from cs336_scaling.schemas.base import FrozenForbidExtraModel
 
 if TYPE_CHECKING:
+    import optax
+
     from cs336_scaling.training.training_config import TrainingConfig
 
 
@@ -15,7 +15,9 @@ class WarmupCosineDecay(FrozenForbidExtraModel):
     warmup_frac: float = 0.05
     init_value: float = 0.0
 
-    def build(self, n_steps: int) -> optax.Schedule:
+    def build(self, n_steps: int) -> "optax.Schedule":
+        import optax
+
         return optax.warmup_cosine_decay_schedule(
             init_value=self.init_value,
             peak_value=self.peak_value,
@@ -27,7 +29,9 @@ class WarmupCosineDecay(FrozenForbidExtraModel):
 
 def _grad_clip_transforms(
     grad_clip_norm: float | None,
-) -> list[optax.GradientTransformation]:
+):
+    import optax
+
     if grad_clip_norm is None:
         return []
     return [optax.clip_by_global_norm(grad_clip_norm)]
@@ -37,7 +41,11 @@ class SGDConfig(FrozenForbidExtraModel):
     lr_scheduler: WarmupCosineDecay
     grad_clip_norm: float | None = 1.0
 
-    def build(self, training_config: "TrainingConfig") -> optax.GradientTransformation:
+    def build(
+        self, training_config: "TrainingConfig"
+    ) -> "optax.GradientTransformation":
+        import optax
+
         return optax.chain(
             *_grad_clip_transforms(self.grad_clip_norm),
             optax.sgd(self.lr_scheduler.build(training_config.total_optimizer_steps)),
@@ -53,7 +61,11 @@ class AdamWConfig(FrozenForbidExtraModel):
     eps_root: float = 1e-8
     grad_clip_norm: float | None = 1.0
 
-    def build(self, training_config: "TrainingConfig") -> optax.GradientTransformation:
+    def build(
+        self, training_config: "TrainingConfig"
+    ) -> "optax.GradientTransformation":
+        import optax
+
         return optax.chain(
             *_grad_clip_transforms(self.grad_clip_norm),
             optax.adamw(

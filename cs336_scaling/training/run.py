@@ -89,6 +89,7 @@ class TrainingResult:
     timeout=60 * 60 * 12,
     secrets=MODAL_SECRETS,
     gpu="B200",
+    ephemeral_disk=1099511,
 )
 def run_training(
     training_config: TrainingConfig, sunet_id: str, experiment_id: int
