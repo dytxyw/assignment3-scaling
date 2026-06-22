@@ -5,32 +5,34 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "fastapi[standard]>=0.115",
-    "furu>=0.0.27",
-    "modal",
-    "psycopg[binary]>=3.2",
     "pydantic>=2.8",
     "requests>=2.32",
-    "sqlalchemy>=2.0",
-    "typer>=0.12",
-    "uvicorn[standard]>=0.30",
-    # ml
+    "rich>=14.0",
+]
+
+[project.optional-dependencies]
+server = [
+    "einx>=0.3.0",
+    "einops>=0.8.1",
+    "equinox>=0.13.0",
+    "fastapi[standard]>=0.115",
+    "flash-hog>=0.5.0",
+    "furu>=0.0.27",
     "jax[cuda13]==0.9.1; sys_platform == 'linux'",
     "jax==0.9.1; sys_platform != 'linux'",
-    "flash-hog>=0.5.0",
-    "equinox>=0.13.0",
-    "einops>=0.8.1",
+    "jaxtyping>=0.3.3",
+    "modal",
     "optax>=0.2.3",
-    "wandb>=0.26.1",
-    "einx>=0.3.0",
-    "chex>=0.1.91",
     "polars>=1.40.1",
-    "tqdm>=4.67",
-    "transformers>=5.6.2",
+    "psycopg[binary]>=3.2",
     "psycopg2-binary>=2.9.12",
     "python-dotenv>=1.2.2",
-    "ipython>=9.13.0",
-    "ipykernel>=7.2.0",
+    "sqlalchemy>=2.0",
+    "tqdm>=4.67",
+    "transformers>=5.6.2",
+    "typer>=0.12",
+    "uvicorn[standard]>=0.30",
+    "wandb>=0.26.1",
 ]
 
 [tool.uv.build-backend]

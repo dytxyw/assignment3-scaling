@@ -3,8 +3,6 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from typing import Any
 
-from tqdm.auto import tqdm
-
 
 class TqdmLogger:
     """File-like class redirecting tqdm progress bar to given logging logger."""
@@ -26,6 +24,8 @@ class TqdmLogger:
 
 @contextmanager
 def tqdm_for_logger(logger: logging.Logger, **kwargs: Any) -> Iterator[Any]:
+    from tqdm.auto import tqdm
+
     with tqdm(
         file=TqdmLogger(logger),
         dynamic_ncols=False,

@@ -5,7 +5,7 @@ from pydantic import Field, model_validator
 
 from cs336_scaling.schemas.base import FrozenForbidExtraModel
 from cs336_scaling.stable_hash import stable_json_hash
-from cs336_scaling.training.model.basic_model import BasicTransformerConfig
+from cs336_scaling.training.model.config import BasicTransformerConfig
 from cs336_scaling.training.optimizer import AdamWConfig, OptimizerConfig, SGDConfig
 from cs336_scaling.utils import require_int
 

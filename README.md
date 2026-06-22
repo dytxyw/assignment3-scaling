@@ -36,7 +36,7 @@ example of submitting and inspecting training runs.
 Install dependencies:
 
 ```sh
-uv sync
+uv sync --extra server
 ```
 
 To download tokenized data:
